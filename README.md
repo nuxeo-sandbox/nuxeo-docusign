@@ -136,10 +136,6 @@ function run(input, params) {
 }
 ```
 
-## Runtime Setup
-
-Please refer to the included Word doc [DocusignSetup.docx](DocuSign-Setup.docx) for instructions on the runtime/end-user configuration.
-
 # Support
 
 **These features are not part of the Nuxeo Production platform.**

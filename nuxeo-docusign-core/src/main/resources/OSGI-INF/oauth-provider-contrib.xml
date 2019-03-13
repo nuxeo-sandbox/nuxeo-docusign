@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.docusign.oauth" version="1.0">
+
+    <require>org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProviderRegistry</require>
+
+    <extension target="org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProviderRegistry"
+               point="providers">
+        <provider>
+            <name>docusign</name>
+            <description>DocuSign</description>
+            <authorizationServerURL>https://account-d.docusign.com/oauth/auth</authorizationServerURL>
+            <tokenServerURL>https://account-d.docusign.com/oauth/token</tokenServerURL>
+        </provider>
+    </extension>
+
+</component>

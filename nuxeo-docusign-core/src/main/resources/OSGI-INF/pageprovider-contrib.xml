@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.docusign.core.pageprovider">
+    <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
+        <coreQueryPageProvider name="DocuSignEnvelopeDoc">
+            <pattern quoteParameters="false">
+                SELECT * FROM Document WHERE ds:envid = '?'
+            </pattern>
+            <pageSize>50</pageSize>
+        </coreQueryPageProvider>
+    </extension>
+</component>

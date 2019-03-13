@@ -1,0 +1,25 @@
+<!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
+<package type="addon" name="nuxeo-docusign" version="@VERSION@">
+  <title>Nuxeo Docusign</title>
+  <description>
+    <p>This plugin provides a wrapper for DocuSign</p>
+  </description>
+  <home-page></home-page>
+  <vendor>Nuxeo</vendor>
+  <installer restart="true" />
+  <uninstaller restart="true" />
+  <!-- <hotreload-support>false</hotreload-support> -->
+  <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
+  <nuxeo-validation></nuxeo-validation>
+  <production-state></production-state>
+  <supported></supported>
+  <platforms>
+    <platform>server-@DISTRIB_VERSION@</platform>
+    <platform>server-@DISTRIB_VERSION@-HF*</platform>
+  </platforms>
+  <dependencies>
+  </dependencies>
+  <license>Apache License, Version 2.0</license>
+  <license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
+  <visibility>MARKETPLACE</visibility>
+</package>

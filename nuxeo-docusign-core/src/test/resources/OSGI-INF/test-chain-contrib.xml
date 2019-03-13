@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.docusign.core.test.chains">
+    <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
+        <scriptedOperation id="javascript.workflow">
+            <inputType>void</inputType>
+            <outputType>void</outputType>
+            <category>javascript</category>
+            <description></description>
+            <script><![CDATA[function run(input, params) {}]]>
+            </script>
+            <param type="string" name="envelopeId"/>
+            <param type="string" name="envelopeStatus"/>
+            <param type="string" name="envelopeSender"/>
+        </scriptedOperation>
+    </extension>
+</component>

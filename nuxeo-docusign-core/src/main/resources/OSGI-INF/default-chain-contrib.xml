@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.docusign.core.chains">
+    <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
+        <scriptedOperation id="javascript.dsDefaultCallback">
+            <inputType>void</inputType>
+            <outputType>void</outputType>
+            <category>javascript</category>
+            <description></description>
+            <script><![CDATA[function run(input, params) {
+
+             if (params.envelopeStatus!=='Completed') return;
+
+             input = Auth.LoginAs(input, {'name': params.envelopeSender});
+
+
+             var docs = DSUpdateDocumentOp(input, {
+                /*required:true - type: string*/
+                'envelopeId' :  params.envelopeId
+             });
+
+             if(docs!== null && docs.size()>0) {
+               docs = Document.Save(docs, {});
+             }
+
+             input = Auth.Logout(input,{});
+
+             }]]>
+            </script>
+            <param type="string" name="envelopeId"/>
+            <param type="string" name="envelopeStatus"/>
+            <param type="string" name="envelopeSender"/>
+        </scriptedOperation>
+
+    </extension>
+</component>

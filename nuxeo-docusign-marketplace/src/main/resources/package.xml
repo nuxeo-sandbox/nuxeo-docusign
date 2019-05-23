@@ -2,7 +2,9 @@
 <package type="addon" name="nuxeo-docusign" version="@VERSION@">
   <title>Nuxeo Docusign</title>
   <description>
-    <p>This plugin provides a wrapper for DocuSign</p>
+    <p>This plugin provides an integration between the Nuxeo Platform and <a href="https://docusign.com">DocuSign</a>.
+      Documents are seamlessly sent to DocuSign for electronic signature.
+      The plugin also supports DocuSign webhooks.</p>
   </description>
   <home-page>https://github.com/nuxeo-sandbox/nuxeo-docusign</home-page>
   <vendor>Nuxeo</vendor>

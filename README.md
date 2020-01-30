@@ -5,7 +5,7 @@
 This plugin provides a wrapper for the [DocSign API](https://docusign.com).
 
 # WARNING - DEPLOYMENT
-For the plugin to work without conflicting wioth `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
+For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
 
 See `assembly.xml` at `nuxeo-docusign-marketplace/src/main/assemble`
 

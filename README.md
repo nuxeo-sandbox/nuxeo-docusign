@@ -2,7 +2,7 @@
 
 [![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=Sandbox/sandbox_nuxeo-docusign-master)](https://qa.nuxeo.org/jenkins/job/Sandbox/job/sandbox_nuxeo-docusign-master/)
 
-This plugin provides a wrapper for the [DocSign API](https://docusign.com).
+This plugin provides an integration between the Nuxeo Platform and <a href="https://docusign.com">DocuSign</a>. Documents are seamlessly sent to DocuSign for electronic signature. The plugin also supports DocuSign webhooks.
 
 # WARNING - DEPLOYMENT
 For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
@@ -18,7 +18,7 @@ Building requires the following software:
 
 # Build
 
-Note: you can download the latest build from our [Jenkins server](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=Sandbox/sandbox_nuxeo-docusign-master) directly. To build locally:
+Note: you can install this plug-in directly [from the Marketplace](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-docusign). If you would like to build locally:
 
 ```
 git clone https://github.com/nuxeo-sandbox/nuxeo-docusign
@@ -31,14 +31,16 @@ mvn clean install -DskipTests
 
 # Installation
 
-If building locally, the Nuxeo Package is at `nuxeo-docusign-marketplace/target/nuxeo-docusign-marketplace-9.10-SNAPSHOT.zip`
+If building locally, the Nuxeo Package is in `nuxeo-docusign-marketplace/target/`
 
 To install:
 
 ```
 cd <nuxeo folder>/bin
-./nuxeoctl mp-install -s nuxeo-docusign-marketplace-9.10-SNAPSHOT.zip
+./nuxeoctl mp-install -s <path-to-target-folder>/nuxeo-docusign-marketplace-<X.X>-SNAPSHOT.zip
 ```
+
+Where `<X.X>` is the matching version that you built.
 
 # Usage
 
@@ -83,10 +85,10 @@ Returns the list of updated documents
 
 ## Implementation
 
-A typical implemennation involves the following:
+A typical implementation involves the following:
 
 * A workflow that will send the document to DocuSign
-* Correspsonding automation chain/script to use Services > SendToDocuSign, for example:
+* Corresponding automation chain/script to use Services > SendToDocuSign, for example:
 
 ```yaml
 - Context.FetchDocument
@@ -146,7 +148,7 @@ Please refer to the included Word doc [DocusignSetup.docx](DocuSign-Setup.docx) 
 
 These solutions are provided for inspiration and we encourage customers to use them as code samples and learning resources.
 
-This is a moving project (no API maintenance, no deprecation process, etc.) If any of these solutions are found to be useful for the Nuxeo Platform in general, they will be integrated directly into platform, not maintained here.
+This is a moving project (no API maintenance, no deprecation process, etc.) If any of these solutions are found to be useful for the Nuxeo Platform in general, they will be integrated directly into the platform, not maintained here.
 
 
 # Licensing

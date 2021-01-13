@@ -24,14 +24,13 @@ import org.nuxeo.docusign.core.callback.DSEvent;
 import org.nuxeo.docusign.core.callback.DSEventParser;
 import org.nuxeo.ecm.core.api.NuxeoException;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 
 public class TestEventParser {
 
     @Test
-    public void testParseOK() throws IOException {
+    public void testParseOK() {
         InputStream stream = getClass().getResourceAsStream("/files/callback.xml");
         DSEventParser parser = new DSEventParser();
         DSEvent event = parser.parse(stream);
@@ -43,12 +42,12 @@ public class TestEventParser {
     }
 
     @Test
-    public void testParseNOK() throws IOException {
+    public void testParseNOK() {
         InputStream stream = getClass().getResourceAsStream("This is not XML");
         DSEventParser parser = new DSEventParser();
         try {
-            DSEvent event = parser.parse(stream);
-            Assert.assertTrue(false);
+            parser.parse(stream);
+            Assert.fail();
         } catch (NuxeoException e) {
             Assert.assertTrue(true);
         }

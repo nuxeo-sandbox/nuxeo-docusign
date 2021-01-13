@@ -1,91 +1,74 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.nuxeo.ecm.distribution</groupId>
-    <artifactId>nuxeo-distribution</artifactId>
-    <version>10.10</version>
-  </parent>
-
-  <groupId>org.nuxeo</groupId>
-  <artifactId>nuxeo-docusign-parent</artifactId>
-  <version>10.10-SNAPSHOT</version>
-  <name>Nuxeo DocuSign Parent</name>
-  <description></description>
-  <packaging>pom</packaging>
-
-  <modules>
-    <module>nuxeo-docusign-core</module>
-    <module>nuxeo-docusign-marketplace</module>
-  </modules>
-
-  <repositories>
-    <repository>
-      <id>public</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>public-snapshot</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>nuxeo-studio</id>
-      <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>public</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
-      <name>Nuxeo releases</name>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
         <groupId>org.nuxeo</groupId>
-        <artifactId>nuxeo-docusign-core</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo</groupId>
-        <artifactId>nuxeo-docusign-marketplace</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+        <artifactId>nuxeo-parent</artifactId>
+        <version>11.4</version>
+    </parent>
 
-  <scm>
-    <connection>scm:git:git://github.com/nuxeo-sandbox/nuxeo-docusign.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:nuxeo-sandbox/nuxeo-docusign.git</developerConnection>
-    <url>https://github.com/nuxeo-sandbox/nuxeo-docusign</url>
-  </scm>
+    <groupId>org.nuxeo.labs</groupId>
+    <artifactId>nuxeo-docusign-parent</artifactId>
+    <version>11.0.0-SNAPSHOT</version>
+    <name>Nuxeo DocuSign Parent</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>nuxeo-docusign-core</module>
+        <module>nuxeo-docusign-marketplace</module>
+    </modules>
+
+    <properties>
+        <nuxeo.target.version>11.*</nuxeo.target.version>
+        <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
+        <docusign.sdk.version>2.9.0</docusign.sdk.version>
+    </properties>
+
+    <repositories>
+      <repository>
+        <id>public</id>
+        <url>https://packages.nuxeo.com/repository/public</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+
+    <pluginRepositories>
+      <pluginRepository>
+        <id>public</id>
+        <url>https://packages.nuxeo.com/repository/public</url>
+        <name>Nuxeo releases</name>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.nuxeo.labs</groupId>
+                <artifactId>nuxeo-docusign-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.nuxeo.labs</groupId>
+                <artifactId>nuxeo-docusign-marketplace</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/nuxeo-sandbox/nuxeo-docusign.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:nuxeo-sandbox/nuxeo-docusign.git</developerConnection>
+        <url>https://github.com/nuxeo-sandbox/nuxeo-docusign</url>
+    </scm>
 
 </project>

@@ -39,7 +39,7 @@ import org.nuxeo.runtime.test.runner.FeaturesRunner;
 public class TestDocuSignOauth {
 
     @Test
-    public void testGetProvider() throws Exception {
+    public void testGetProvider() {
         OAuth2ServiceProviderRegistry registry = Framework.getService(OAuth2ServiceProviderRegistry.class);
         OAuth2ServiceProvider provider = registry.getProvider("docusign");
         Assert.assertNotNull(provider);

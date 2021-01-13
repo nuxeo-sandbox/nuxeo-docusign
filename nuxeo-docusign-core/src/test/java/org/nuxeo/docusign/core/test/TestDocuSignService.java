@@ -27,16 +27,15 @@ import org.nuxeo.docusign.core.service.DocuSignService;
 import org.nuxeo.docusign.core.test.mock.MockCredentialFactory;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.impl.DocumentModelImpl;
 import org.nuxeo.ecm.platform.test.PlatformFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
-import org.nuxeo.runtime.test.runner.LocalDeploy;
 
 import javax.inject.Inject;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,9 +43,9 @@ import java.util.List;
 @Features({PlatformFeature.class})
 @Deploy({
         "nuxeo-docusign-core",
-        "org.nuxeo.ecm.platform.oauth"
+        "org.nuxeo.ecm.platform.oauth",
+        "nuxeo-docusign-core:OSGI-INF/test-credential-contrib.xml"
 })
-@LocalDeploy({"nuxeo-docusign-core:OSGI-INF/test-credential-contrib.xml"})
 public class TestDocuSignService {
 
     @Inject
@@ -65,10 +64,10 @@ public class TestDocuSignService {
         Blob blob = helper.getBlobs().get(0);
         String id = service.send(
                 session,
-                Arrays.asList(blob),
+                Collections.singletonList(blob),
                 "Test with one Blob",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
         Assert.assertNotNull(id);
     }
@@ -82,8 +81,8 @@ public class TestDocuSignService {
                 session,
                 blobs,
                 "Test with Blobs File",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
         Assert.assertNotNull(id);
     }
@@ -97,8 +96,8 @@ public class TestDocuSignService {
                 session,
                 docs,
                 "Test with Two Docs And Two Signers",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
         Assert.assertNotNull(id);
     }
@@ -110,10 +109,10 @@ public class TestDocuSignService {
         Blob blob = helper.getBlobs().get(0);
         String id = service.send(
                 session,
-                Arrays.asList(blob),
+                Collections.singletonList(blob),
                 "Test with one Blob and Custom Callback",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 TestHelpers.CALLBACK_URL);
         Assert.assertNotNull(id);
     }
@@ -125,10 +124,10 @@ public class TestDocuSignService {
         Blob blob = helper.getBlobs().get(0);
         String id = service.send(
                 session,
-                Arrays.asList(blob),
+                Collections.singletonList(blob),
                 "Test with one Blob",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
         Assert.assertNotNull(id);
         List<Blob> blobs = service.getSignedBlobs(session,id);
@@ -145,11 +144,11 @@ public class TestDocuSignService {
                 session,
                 docs,
                 "Test Update Documents",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
 
-        session.saveDocuments(docs.toArray(new DocumentModelImpl[]{}));
+        session.saveDocuments(docs.toArray(new DocumentModel[0]));
         session.save();
 
         DocumentModelList updateDocuments = service.updateDocuments(session,id);

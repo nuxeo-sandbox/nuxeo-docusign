@@ -41,7 +41,7 @@ public class TestDocuSignAdapter {
     CoreSession session;
 
     @Test
-    public void testGetAdapter() throws Exception {
+    public void testGetAdapter() {
         DocumentModel doc = session.createDocumentModel("File");
         doc.addFacet(DSAdapter.FACET);
         doc = session.createDocument(doc);

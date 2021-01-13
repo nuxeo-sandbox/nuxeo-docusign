@@ -41,19 +41,18 @@ import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
-import org.nuxeo.runtime.test.runner.LocalDeploy;
 
 import javax.inject.Inject;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 @RunWith(FeaturesRunner.class)
 @Features({AutomationFeature.class})
 @Deploy({
         "nuxeo-docusign-core",
-        "org.nuxeo.ecm.platform.oauth"
+        "org.nuxeo.ecm.platform.oauth",
+        "nuxeo-docusign-core:OSGI-INF/test-credential-contrib.xml"
 })
-@LocalDeploy({"nuxeo-docusign-core:OSGI-INF/test-credential-contrib.xml"})
 public class TestDocuSignOp {
 
     @Inject
@@ -81,7 +80,7 @@ public class TestDocuSignOp {
                 set("signerEmails",new StringList(new String[]{TestHelpers.EMAIL})).
                 set("subject","Automation Test").
                 set("contextVariable","myVariable");
-        doc = (DocumentModel) as.run(ctx, chain);
+        as.run(ctx, chain);
         Assert.assertNotNull(ctx.get("myVariable"));
     }
 
@@ -93,10 +92,10 @@ public class TestDocuSignOp {
         DocumentModel doc = helper.getDocs(session).get(0);
         String envelopeId = dss.send(
                 session,
-                new DocumentModelListImpl(Arrays.asList(doc)),
+                new DocumentModelListImpl(Collections.singletonList(doc)),
                 "Test Automation Get Signed Blobs",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
         session.saveDocument(doc);
 
@@ -118,12 +117,12 @@ public class TestDocuSignOp {
         DocumentModel doc = helper.getDocs(session).get(0);
         String envelopeId = dss.send(
                 session,
-                new DocumentModelListImpl(Arrays.asList(doc)),
+                new DocumentModelListImpl(Collections.singletonList(doc)),
                 "Test Automation Update Documents",
-                Arrays.asList(TestHelpers.EMAIL),
-                new HashMap<String, String>(),
+                Collections.singletonList(TestHelpers.EMAIL),
+                new HashMap<>(),
                 null);
-        doc = session.saveDocument(doc);
+        session.saveDocument(doc);
 
         OperationContext ctx = new OperationContext();
         ctx.setCoreSession(session);

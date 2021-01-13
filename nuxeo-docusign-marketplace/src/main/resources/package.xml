@@ -13,8 +13,7 @@
   <installer restart="true" />
   <uninstaller restart="true" />
   <platforms>
-    <platform>server-@DISTRIB_VERSION@</platform>
-    <platform>server-@DISTRIB_VERSION@-HF*</platform>
+    <platform>server-@NUXEO_TARGET_VERSION@</platform>
   </platforms>
   <dependencies>
   </dependencies>

@@ -49,7 +49,7 @@ public class TestEnvelopePageProvider {
     CoreSession session;
 
     @Test
-    public void testPageProvider() throws Exception {
+    public void testPageProvider() {
         final String envelopeId = "testId";
 
         DocumentModel doc = session.createDocumentModel("File");

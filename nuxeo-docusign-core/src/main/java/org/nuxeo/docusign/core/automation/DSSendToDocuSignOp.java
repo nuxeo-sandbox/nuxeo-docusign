@@ -35,7 +35,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 
 @Operation(
@@ -106,7 +106,7 @@ public class DSSendToDocuSignOp {
 
     @OperationMethod
     public Blob run(Blob blob) throws Exception {
-        String envelopeId = service.send(session, Arrays.asList(blob),subject,
+        String envelopeId = service.send(session, Collections.singletonList(blob),subject,
                 signerEmails,customFields,callbackUrl);
         ctx.put(contextVariable,envelopeId);
         return blob;

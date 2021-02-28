@@ -57,13 +57,8 @@
         <includes>
           <artifact groupId="!org.nuxeo*"/>
           <artifact groupId="org.nuxeo.lib*"/>
-          <artifact artifactId="jackson-datatype-joda"/>
         </includes>
         <excludes>
-          <artifact artifactId="jackson-dataformat-csv"/>
-          <artifact artifactId="jackson-jaxrs-base"/>
-          <artifact artifactId="jackson-jaxrs-json-provider"/>
-          <artifact artifactId="jackson-module-jaxb-annotations"/>
           <artifact groupId="org.apache.logging.log4j"/>
           <artifact groupId="junit"/>
           <artifact groupId="joda-time"/>

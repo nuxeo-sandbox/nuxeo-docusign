@@ -50,7 +50,6 @@
         <includes>
           <artifact groupId="!org.nuxeo*"/>
           <artifact groupId="org.nuxeo.lib*"/>
-          <artifact artifactId="jackson-datatype-joda"/>
         </includes>
         <excludes>
           <artifact groupId="org.apache.logging.log4j"/>

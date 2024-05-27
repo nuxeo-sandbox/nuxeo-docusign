@@ -4,12 +4,12 @@
     <parent>
         <groupId>org.nuxeo</groupId>
         <artifactId>nuxeo-parent</artifactId>
-        <version>2021.1</version>
+        <version>2023.11</version>
     </parent>
 
     <groupId>org.nuxeo.labs</groupId>
     <artifactId>nuxeo-docusign-parent</artifactId>
-    <version>2021.0.0-SNAPSHOT</version>
+    <version>2023.0.0-SNAPSHOT</version>
     <name>Nuxeo DocuSign Parent</name>
     <packaging>pom</packaging>
 
@@ -19,7 +19,7 @@
     </modules>
 
     <properties>
-        <nuxeo.target.version>2021.*</nuxeo.target.version>
+        <nuxeo.target.version>2023.*</nuxeo.target.version>
         <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
         <docusign.sdk.version>2.9.0</docusign.sdk.version>
     </properties>

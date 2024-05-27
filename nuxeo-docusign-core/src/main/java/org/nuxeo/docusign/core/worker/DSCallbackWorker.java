@@ -20,8 +20,8 @@
 
 package org.nuxeo.docusign.core.worker;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.nuxeo.docusign.core.callback.DSEvent;
 import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationChain;
@@ -35,7 +35,7 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
 
 public class DSCallbackWorker extends AbstractWork {
 
-    private static final Log log = LogFactory.getLog(DSCallbackWorker.class);
+    private static final Logger log = LogManager.getLogger(DSCallbackWorker.class);
 
     private DSEvent event;
     private String chainName;

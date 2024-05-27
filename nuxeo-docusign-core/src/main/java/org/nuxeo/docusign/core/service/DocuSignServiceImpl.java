@@ -27,8 +27,8 @@ import com.docusign.esign.model.*;
 import com.google.api.client.util.Base64;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.nuxeo.docusign.core.adapter.DSAdapter;
 import org.nuxeo.docusign.core.callback.DSEvent;
 import org.nuxeo.docusign.core.callback.DSEventParser;
@@ -52,7 +52,7 @@ import java.util.List;
 
 public class DocuSignServiceImpl extends DefaultComponent implements DocuSignService {
 
-    private static final Log log = LogFactory.getLog(DocuSignServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(DocuSignServiceImpl.class);
 
     protected static final String CONFIG_EXT_POINT = "configuration";
 

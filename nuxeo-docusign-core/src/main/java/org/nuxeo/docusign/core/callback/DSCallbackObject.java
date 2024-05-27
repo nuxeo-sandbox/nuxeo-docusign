@@ -19,8 +19,8 @@
 
 package org.nuxeo.docusign.core.callback;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.nuxeo.docusign.core.service.DocuSignService;
 import org.nuxeo.ecm.webengine.model.WebObject;
 import org.nuxeo.ecm.webengine.model.impl.ModuleRoot;
@@ -42,7 +42,7 @@ import java.io.InputStream;
 @WebObject(type = "docusign")
 public class DSCallbackObject extends ModuleRoot {
 
-    protected static final Log log = LogFactory.getLog(DSCallbackObject.class);
+    private static final Logger log = LogManager.getLogger(DSCallbackObject.class);
 
     @Context
     private HttpServletRequest request;

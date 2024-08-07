@@ -42,6 +42,7 @@ import org.nuxeo.ecm.platform.query.api.PageProvider;
 import org.nuxeo.ecm.platform.query.api.PageProviderService;
 import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.api.login.NuxeoLoginContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
@@ -165,7 +166,23 @@ public class DocuSignServiceImpl extends DefaultComponent implements DocuSignSer
             if (blob!=null) blobs.add(blob);
         }
         String envelopeId = send(session,blobs,subject,signerEmails,customFields,callbackUrl);
-        int position =1;
+
+        CoreInstance.doPrivileged(session.getRepositoryName(), (CoreSession s) -> {
+            int position =1;
+            for(DocumentModel doc: docs) {
+                Blob blob = (Blob) doc.getPropertyValue("file:content");
+                if (blob!=null) {
+                    doc.addFacet(DSAdapter.FACET);
+                    DSAdapter adapter = doc.getAdapter(DSAdapter.class);
+                    adapter.setEnvelopeId(envelopeId);
+                    adapter.setEnvelopePosition(position++);
+                    adapter.setSender(session.getPrincipal().getName());
+                    s.saveDocument(doc);
+                }
+            }
+            s.save();
+        });
+        /*
         for(DocumentModel doc: docs) {
             Blob blob = (Blob) doc.getPropertyValue("file:content");
             if (blob!=null) {
@@ -174,8 +191,11 @@ public class DocuSignServiceImpl extends DefaultComponent implements DocuSignSer
                 adapter.setEnvelopeId(envelopeId);
                 adapter.setEnvelopePosition(position++);
                 adapter.setSender(session.getPrincipal().getName());
+                session.saveDocument(doc);
+                
             }
-        }
+        }*/
+
         return envelopeId;
     }
 

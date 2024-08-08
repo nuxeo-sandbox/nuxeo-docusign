@@ -93,6 +93,15 @@ Returns the list of updated documents.
 
 ⚠️ Remember to save the input document(s) after calling the operation
 
+> [!IMPORTANT]
+> The operation uses an internal PageProvider named `DocuSignEnvelopeDoc` to retrieve the document(s). See its code at [pageprovider-contrib.xml](./nuxeo-docusign-core//src/main/resources/OSGI-INF/pageprovider-contrib.xml)
+> 
+> You can override this by creating a PageProvider with the same ID, `DocuSignEnvelopeDoc`. The most important part that must always be in the query is `ds:envid = '?'`. Typically, in Studio the query part would be: 
+> 
+> `ds:envid = '?' AND ecm:isVersion = 0 AND ecm:isProxy = 0 AND ecm:isTrashed = 0 . . . etc . . .`
+>
+> 💡 Do not forget to uncheck the "Quote parameters" box in _Advanced Configuration_.
+
 ## Implementation
 
 A typical implementation involves the following:

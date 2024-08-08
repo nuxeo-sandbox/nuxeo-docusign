@@ -3,7 +3,7 @@
     <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
         <coreQueryPageProvider name="DocuSignEnvelopeDoc">
             <pattern quoteParameters="false">
-                SELECT * FROM Document WHERE ds:envid = '?'
+                SELECT * FROM Document WHERE ds:envid = '?' AND ecm:isVersion = 0 AND ecm:isProxy = 0
             </pattern>
             <pageSize>50</pageSize>
         </coreQueryPageProvider>

@@ -34,7 +34,9 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
         id = DSUpdateDocumentOp.ID,
         category = Constants.CAT_SERVICES,
         label = "DocuSign: Update Documents",
-        description = "Get the signed blobs for the given envelope ID and set those in the corresponding documents")
+        description = "Get the signed blobs for the given envelope ID and set those in the corresponding documents. "
+        + "Warning: Document(s) is/are not saved by the oeration, caller is reponsible of saving it/them "
+        + "(if this is not done, the document will not the signed blob in its docusign schema)")
 public class DSUpdateDocumentOp {
 
     public static final String ID = "DSUpdateDocumentOp";

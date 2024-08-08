@@ -37,12 +37,9 @@ import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 
 import java.util.Collections;
 
-
-@Operation(
-        id = DSSendToDocuSignOp.ID,
-        category = Constants.CAT_SERVICES,
-        label = "DocuSign: Send To DocuSign",
-        description = "Send the document to DocuSign for electronic signature")
+@Operation(id = DSSendToDocuSignOp.ID, category = Constants.CAT_SERVICES, label = "DocuSign: Send To DocuSign", description = "Send the document to DocuSign for electronic signature."
+        + "Warning: Document(s) is/are not saved by the oeration, caller is reponsible of saving it/them "
+        + "(if this is not done, the document will not have the 'Docusign' facet and its schema, retrieval of the signed blob will fail")
 public class DSSendToDocuSignOp {
 
     public static final String ID = "SendToDocuSign";
@@ -56,67 +53,49 @@ public class DSSendToDocuSignOp {
     @Context
     protected DocuSignService service;
 
-    @Param(
-            name = "signerEmails",
-            description= "A StringList of email addresses",
-            required = true)
+    @Param(name = "signerEmails", description = "A StringList of email addresses", required = true)
     protected StringList signerEmails;
 
-    @Param(
-            name = "subject",
-            description= "The subject of the email sent to the signers",
-            required = true)
+    @Param(name = "subject", description = "The subject of the email sent to the signers", required = true)
     protected String subject;
 
-    @Param(
-            name = "contextVariable",
-            description= "The name of the context variable where the envelope ID will be stored",
-            required = true)
+    @Param(name = "contextVariable", description = "The name of the context variable where the envelope ID will be stored", required = true)
     protected String contextVariable;
 
-    @Param(
-            name = "customFields",
-            description= "Custom Fields to be added to the envelope",
-            required = false)
+    @Param(name = "customFields", description = "Custom Fields to be added to the envelope", required = false)
     protected Properties customFields = new Properties();
 
-    @Param(
-            name = "callbackUrl",
-            description= "The callback URL DocuSign will use for this envelope",
-            required = false)
+    @Param(name = "callbackUrl", description = "The callback URL DocuSign will use for this envelope", required = false)
     protected String callbackUrl;
 
     @OperationMethod
     public DocumentModel run(DocumentModel doc) throws Exception {
         DocumentModelList docs = new DocumentModelListImpl();
         docs.add(doc);
-        String envelopeId = service.send(session,docs,subject, signerEmails,
-                customFields,callbackUrl);
-        ctx.put(contextVariable,envelopeId);
+        String envelopeId = service.send(session, docs, subject, signerEmails, customFields, callbackUrl);
+        ctx.put(contextVariable, envelopeId);
         return doc;
     }
 
     @OperationMethod
     public DocumentModelList run(DocumentModelList docs) throws Exception {
-        String envelopeId = service.send(session,docs,subject, signerEmails,
-                customFields,callbackUrl);
-        ctx.put(contextVariable,envelopeId);
+        String envelopeId = service.send(session, docs, subject, signerEmails, customFields, callbackUrl);
+        ctx.put(contextVariable, envelopeId);
         return docs;
     }
 
     @OperationMethod
     public Blob run(Blob blob) throws Exception {
-        String envelopeId = service.send(session, Collections.singletonList(blob),subject,
-                signerEmails,customFields,callbackUrl);
-        ctx.put(contextVariable,envelopeId);
+        String envelopeId = service.send(session, Collections.singletonList(blob), subject, signerEmails, customFields,
+                callbackUrl);
+        ctx.put(contextVariable, envelopeId);
         return blob;
     }
 
     @OperationMethod
     public BlobList run(BlobList blobs) throws Exception {
-        String envelopeId = service.send(session,blobs,subject, signerEmails,
-                customFields,callbackUrl);
-        ctx.put(contextVariable,envelopeId);
+        String envelopeId = service.send(session, blobs, subject, signerEmails, customFields, callbackUrl);
+        ctx.put(contextVariable, envelopeId);
         return blobs;
     }
 

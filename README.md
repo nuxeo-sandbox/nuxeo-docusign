@@ -58,6 +58,13 @@ nuxeo.url=https://<NUXEO_SERVER>/nuxeo
 * The envelope ID and position are stored in the `docusign` schema for each document sent
 * The plug-in adds a facet name `Docusign` to any document that will be sent to DocuSign (via the operation below). It adds the `docusign` schema to the document, which contains the necessary fields for the integration.
 
+> [!IMPORTANT]
+> **The operations do not _save_ the document(s)**. So, the caller is responsible for explicitly saving them.
+> 
+> For example, after calling `SendToDocuSign`, if you don't save the input document(s), they will not have the `Docusign` facet, not the `docusign` schema: It will be impossible to retrieve the signed blob.
+>
+> This is done to avoid to many calls to the database and to events in case you need to also setup some metadata.
+
 ## Operations
 The plug-in exposes two new Automation Operations:
 
@@ -76,12 +83,15 @@ The plug-in exposes two new Automation Operations:
   * customFields
   * event (the XML string sent by DocuSign)
 * customFields: a list of key/value that DocuSign will add to callback messages (very convenient to store the context of the request, for example pass document and workflow task id's here)
+* ⚠️ Remember to save the input document(s) after calling the operation
 
 ### Services > DSUpdateDocumentOp
 
 This operation is used to retrieve the signed blobs from docusign. It takes an envelope ID as input, downloads the signed blobs of that envelope, and updates the corresponding Nuxeo documents.
 
-Returns the list of updated documents
+Returns the list of updated documents.
+
+⚠️ Remember to save the input document(s) after calling the operation
 
 ## Implementation
 

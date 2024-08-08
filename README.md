@@ -3,6 +3,7 @@
 This plugin provides an integration between the Nuxeo Platform and <a href="https://docusign.com">DocuSign</a>. Documents are seamlessly sent to DocuSign for electronic signature. The plugin also supports DocuSign webhooks.
 
 # Important Note
+
 For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
 
 See `assembly.xml` at `nuxeo-docusign-marketplace/src/main/assemble`
@@ -13,6 +14,12 @@ Building requires the following software:
 
 - git
 - maven
+
+Usage requires a valid, publicly accessible domain name for the Nuxeo instance. Be sure to apply it to `nuxeo.url` in `nuxeo.conf`:
+
+```
+nuxeo.url=https://<NUXEO_SERVER>/nuxeo
+```
 
 # Build
 
@@ -27,7 +34,7 @@ mvn clean install -Dnuxeo-docusign-username=MY_USERNAME -Dnuxeo-docusign-passwor
 mvn clean install -DskipTests
 ```
 
-# Installation
+# Install
 
 If building locally, the Nuxeo Package is in `nuxeo-docusign-marketplace/target/`
 
@@ -40,26 +47,19 @@ cd <nuxeo folder>/bin
 
 Where `<X.X>` is the matching version that you built.
 
-# Usage
+# Design Concepts
 
-## Configuration
-
-A valid, publicly accessible domain name is required for the Nuxeo instance, in order for the DocuSign callback to work. Be sure to apply it to `nuxeo.url` in `nuxeo.conf`.
-
-```
-nuxeo.url=https://<NUXEO_SERVER>/nuxeo
-```
-
-## Some concepts
 * The main container for the docusign request is called an "envelope". You may put one or several files in an envelope that must be signed by one or several signers
 * The envelope has an ID and each file has a position (1,2 ...)
 * The envelope ID and position are stored in the `docusign` schema for each document sent
 * The plug-in adds a facet name `Docusign` to any document that will be sent to DocuSign (via the operation below). It adds the `docusign` schema to the document, which contains the necessary fields for the integration.
+* The plug-in adds a page provider named `DocuSignEnvelopeDoc`. This page provider is used in order to locate documents that need to be updated (e.g. during the callback from Docusign after signing is complete)
 
-## Operations
-The plug-in exposes two new Automation Operations:
+# Operations
 
-### Services > SendToDocuSign
+The plug-in exposes some new Automation Operations:
+
+## Services > SendToDocuSign
 
 (note: this operation does not save the document)
 
@@ -77,7 +77,7 @@ The plug-in exposes two new Automation Operations:
   * event (the XML string sent by DocuSign)
 * customFields: a list of key/value that DocuSign will add to callback messages (very convenient to store the context of the request, for example pass document and workflow task id's here)
 
-### Services > DSUpdateDocumentOp
+## Services > DSUpdateDocumentOp
 
 (note: this operation does not save the document)
 
@@ -85,7 +85,9 @@ This operation is used to retrieve the signed blobs from docusign. It takes an e
 
 Returns the list of updated documents.
 
-## Implementation
+# Usage
+
+## Configuration
 
 A typical implementation involves the following:
 

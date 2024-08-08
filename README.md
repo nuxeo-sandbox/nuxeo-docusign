@@ -1,10 +1,8 @@
 # About
 
-[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=Sandbox/sandbox_nuxeo-docusign-master)](https://qa.nuxeo.org/jenkins/job/Sandbox/job/sandbox_nuxeo-docusign-master/)
-
 This plugin provides an integration between the Nuxeo Platform and <a href="https://docusign.com">DocuSign</a>. Documents are seamlessly sent to DocuSign for electronic signature. The plugin also supports DocuSign webhooks.
 
-# WARNING - DEPLOYMENT
+# Important Note
 For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
 
 See `assembly.xml` at `nuxeo-docusign-marketplace/src/main/assemble`
@@ -58,17 +56,12 @@ nuxeo.url=https://<NUXEO_SERVER>/nuxeo
 * The envelope ID and position are stored in the `docusign` schema for each document sent
 * The plug-in adds a facet name `Docusign` to any document that will be sent to DocuSign (via the operation below). It adds the `docusign` schema to the document, which contains the necessary fields for the integration.
 
-> [!IMPORTANT]
-> **The operations do not _save_ the document(s)**. So, the caller is responsible for explicitly saving them.
-> 
-> For example, after calling `SendToDocuSign`, if you don't save the input document(s), they will not have the `Docusign` facet, not the `docusign` schema: It will be impossible to retrieve the signed blob.
->
-> This is done to avoid to many calls to the database and to events in case you need to also setup some metadata.
-
 ## Operations
 The plug-in exposes two new Automation Operations:
 
 ### Services > SendToDocuSign
+
+(note: this operation does not save the document)
 
 * contextVariable: the name of the context variable where the envelope ID will be stored.
 * signerEmails: the signers email addresses
@@ -83,30 +76,20 @@ The plug-in exposes two new Automation Operations:
   * customFields
   * event (the XML string sent by DocuSign)
 * customFields: a list of key/value that DocuSign will add to callback messages (very convenient to store the context of the request, for example pass document and workflow task id's here)
-* ⚠️ Remember to save the input document(s) after calling the operation
 
 ### Services > DSUpdateDocumentOp
+
+(note: this operation does not save the document)
 
 This operation is used to retrieve the signed blobs from docusign. It takes an envelope ID as input, downloads the signed blobs of that envelope, and updates the corresponding Nuxeo documents.
 
 Returns the list of updated documents.
 
-⚠️ Remember to save the input document(s) after calling the operation
-
-> [!IMPORTANT]
-> The operation uses an internal PageProvider named `DocuSignEnvelopeDoc` to retrieve the document(s). See its code at [pageprovider-contrib.xml](./nuxeo-docusign-core//src/main/resources/OSGI-INF/pageprovider-contrib.xml)
-> 
-> You can override this by creating a PageProvider with the same ID, `DocuSignEnvelopeDoc`. The most important part that must always be in the query is `ds:envid = '?'`. Typically, in Studio the query part would be: 
-> 
-> `ds:envid = '?' AND ecm:isVersion = 0 AND ecm:isProxy = 0 AND ecm:isTrashed = 0 . . . etc . . .`
->
-> 💡 Do not forget to uncheck the "Quote parameters" box in _Advanced Configuration_.
-
 ## Implementation
 
 A typical implementation involves the following:
 
-* A workflow that will send the document to DocuSign
+* A workflow with a task that will send the document to DocuSign
 * Corresponding automation chain/script to use Services > SendToDocuSign, for example:
 
 ```yaml

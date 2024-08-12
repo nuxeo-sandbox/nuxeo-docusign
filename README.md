@@ -100,7 +100,7 @@ A typical implementation involves the following:
     contextVariable: envelopeId
     signerEmails: "@{NodeVariables[\"signers\"]}"
     subject: "@{NodeVariables[\"subject\"]}"
-    callbackUrl: "@{Env[\"nuxeo.url\"]}site/docusign/javascript.wf_Docusign_HandleCallback"
+    callbackUrl: "@{Env[\"nuxeo.url\"]}/site/docusign/javascript.wf_Docusign_HandleCallback"
     customFields:
       processId: "@{Context[\"workflowInstanceId\"]}"
       documentId: "@{Document.id}"

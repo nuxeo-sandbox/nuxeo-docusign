@@ -29,3 +29,5 @@ target
 dependency-tree.log
 nashorn_code_cache
 ~$*
+.env
+.yo-rc.json

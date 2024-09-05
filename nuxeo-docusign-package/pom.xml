@@ -7,7 +7,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>nuxeo-docusign-marketplace</artifactId>
+  <artifactId>nuxeo-docusign-package</artifactId>
   <packaging>zip</packaging>
   <name>Nuxeo DocuSign Package</name>
 
@@ -25,7 +25,6 @@
       <groupId>org.nuxeo.labs</groupId>
       <artifactId>nuxeo-docusign-core</artifactId>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -41,5 +40,6 @@
       </plugin>
     </plugins>
   </build>
+
 
 </project>

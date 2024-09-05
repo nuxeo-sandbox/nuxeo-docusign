@@ -44,6 +44,13 @@
       <groupId>com.docusign</groupId>
       <artifactId>docusign-esign-java</artifactId>
       <version>${docusign.sdk.version}</version>
+      <exclusions>
+        <exclusion>
+          <!-- use com.sun.activation:javax.activation-api instead -->
+          <groupId>jakarta.activation</groupId>
+          <artifactId>jakarta.activation-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.runtime</groupId>

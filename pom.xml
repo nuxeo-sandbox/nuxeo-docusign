@@ -15,14 +15,12 @@
   <modules>
     <module>nuxeo-docusign-core</module>
     <module>nuxeo-docusign-package</module>
-    <module>nuxeo-docusign-docker</module>
   </modules>
 
   <properties>
     <nuxeo.target.version>2023.*</nuxeo.target.version>
     <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
     <docusign.sdk.version>2.9.0</docusign.sdk.version>
-    <skipDocker>false</skipDocker>
   </properties>
 
   <repositories>
@@ -93,11 +91,6 @@
       <dependency>
         <groupId>org.nuxeo.labs</groupId>
         <artifactId>nuxeo-docusign-package</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.labs</groupId>
-        <artifactId>nuxeo-docusign-docker</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

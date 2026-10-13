@@ -19,7 +19,7 @@
   <supported>false</supported>
   <target-platform>
     <name>lts</name>
-    <version>[2023.0.159,)</version>
+    <version>[2023.0,2024.0)</version>
   </target-platform>
   <!-- Dependencies on other packages -->
   <!-- <dependencies> -->

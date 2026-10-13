@@ -4,7 +4,7 @@ This plugin provides an integration between the Nuxeo Platform and <a href="http
 
 # Important Note
 
-For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installaiton of the `jackson-datatype-joda` library, required by DocuSign.
+For the plugin to work without conflicting with `jackson` libraries deployed with Nuxeo, the marketplace package forces the installation of the `jackson-datatype-joda` library, required by DocuSign.
 
 See `assembly.xml` at `nuxeo-docusign-marketplace/src/main/assemble`
 
@@ -28,32 +28,24 @@ Note: you can install this plug-in directly [from the Marketplace](https://conne
 ```
 git clone https://github.com/nuxeo-sandbox/nuxeo-docusign
 cd nuxeo-docusign
-# To run the tests, need to provide credentials
+mvn clean install
+
+# Optionally provide DocuSign credentials to exercise the live integration tests
+# (without them, those integration tests are skipped)
 mvn clean install -Dnuxeo-docusign-username=MY_USERNAME -Dnuxeo-docusign-password=MY_PASSWORD -Dnuxeo-docusign-integratorKey=MY_KEY -Dnuxeo-docusign-recipient=RECIPIENT_EMAIL -Dnuxeo-docusign-callback=MY_URL
-# Or skip the tests
-mvn clean install -DskipTests
 ```
 
 # Install
 
-If building locally, the Nuxeo Package is in `nuxeo-docusign-marketplace/target/`
-
-To install:
-
-```
-cd <nuxeo folder>/bin
-./nuxeoctl mp-install -s <path-to-target-folder>/nuxeo-docusign-marketplace-<X.X>-SNAPSHOT.zip
-```
-
-Where `<X.X>` is the matching version that you built.
+If building locally, the Nuxeo Package is in `nuxeo-docusign-package/target/`; install it with `nuxeoctl mp-install`.
 
 # Design Concepts
 
 * The main container for the docusign request is called an "envelope". You may put one or several files in an envelope that must be signed by one or several signers
 * The envelope has an ID and each file has a position (1,2 ...)
 * The envelope ID and position are stored in the `docusign` schema for each document sent
-* The plug-in adds a facet name `Docusign` to any document that will be sent to DocuSign (via the operation below). It adds the `docusign` schema to the document, which contains the necessary fields for the integration.
-* The plug-in adds a page provider named `DocuSignEnvelopeDoc`. This page provider is used in order to locate documents that need to be updated (e.g. during the callback from Docusign after signing is complete)
+* The plug-in adds a facet named `Docusign` to any document that will be sent to DocuSign (via the operation below). This adds the `docusign` schema to the document, which contains the necessary fields for the integration.
+* The plug-in includes a page provider named `DocuSignEnvelopeDoc`. This page provider is used in order to locate documents that need to be updated (e.g. during the callback from Docusign after signing is complete)
 
 # Operations
 
@@ -160,13 +152,4 @@ This is a moving project (no API maintenance, no deprecation process, etc.) If a
 
 # About Nuxeo
 
-Nuxeo Platform is an open source Content Services platform, written in Java. Data can be stored in both SQL & NoSQL databases.
-
-The development of the Nuxeo Platform is mostly done by Nuxeo employees with an open development model.
-
-The source code, documentation, roadmap, issue tracker, testing, benchmarks are all public.
-
-Typically, Nuxeo users build different types of information management solutions for [document management](https://www.nuxeo.com/solutions/document-management/), [case management](https://www.nuxeo.com/solutions/case-management/), and [digital asset management](https://www.nuxeo.com/solutions/dam-digital-asset-management/), use cases. It uses schema-flexible metadata & content models that allows content to be repurposed to fulfill future use cases.
-
-More information is available at [www.nuxeo.com](https://www.nuxeo.com).
-
+More information is available at [https://www.hyland.com/en/solutions/products/nuxeo-platform](https://www.hyland.com/en/solutions/products/nuxeo-platform).
